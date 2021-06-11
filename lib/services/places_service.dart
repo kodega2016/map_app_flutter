@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:google_map_in_flutter/models/location.dart';
 import 'package:google_map_in_flutter/services/api_keys.dart';
@@ -20,6 +21,8 @@ class PlacesService {
       return _decoded['features']
           .map<Location>((doc) => Location.fromJson(doc['properties']))
           .toList();
-    } else {}
+    } else {
+      throw HttpException(_response.reasonPhrase ?? 'Failed to get data');
+    }
   }
 }
